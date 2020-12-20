@@ -1,0 +1,37 @@
+﻿@page "/counter"
+@inject AppState AppState
+@implements IDisposable
+
+<h1>Counter</h1>
+
+<p>Current count: @AppState.Counter</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {    
+    private void IncrementCount()
+    {
+        AppState.UpdateCounter(this, AppState.Counter + 1);
+    }
+
+    private async Task AppState_StateChanged(ComponentBase Source, string Property)
+    {
+        if (Source != this)
+        {
+            //Inspect Property to determine if action needs to be taken.
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        AppState.StateChanged += async (Source, Property)
+            => await AppState_StateChanged(Source, Property);
+    }
+
+    void IDisposable.Dispose()
+    {
+        AppState.StateChanged -= async (Source, Property)
+            => await AppState_StateChanged(Source, Property);
+    }
+}

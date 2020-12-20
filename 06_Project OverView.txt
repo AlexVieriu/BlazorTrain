@@ -1,0 +1,99 @@
+﻿1. Blazor Server
+
+Program.cs		-> .Run() : it is a infinity while loop, checking if a HttpRequest has aquare
+				-> first thing that is from Main is Startup.cs
+
+StartUp.cs		-> ctor: Startup (IConfiguration congiguration)
+						-> configuration: appsettings.json, ...
+						-> in blazor WASM there is no appsetting.json but we can add one
+						-> this method is called by the Runtime
+						-> use this method to add services to the container
+
+				-> ConfigureServices
+					-> where you set classes for dependency injection
+					
+				-> Configure
+					-> specifies the middleware pipeline for a request
+					-> middleware : from when a request comes in and a response goes out				
+						
+
+-- ConfigureServices.cs --
+
+->AddHubOptions: set options on the SignalR Hub so you can send larger message between Server and UI
+services.AddServerSideBlazor().AddHubOptions(
+		options => {options.MaximumReceiveMessageSize = 50000; });
+
+-- Configure.cs --
+
+if (env.IsDevelopment())				// if the enviroment is Development
+{
+    app.UseDeveloperExceptionPage();	// Index.razor, _Host.cshtml
+}
+else{
+	app.UseExceptionHandler("/Error");	// use this page
+	app.UseHsts();
+}
+
+app.UseHttpsRedirection();	-> redirect http calls to https calls;
+
+app.UseStaticFiles();		-> for using css, html, img, files
+
+app.UseRouting();			-> routing is responsible for matching incomming HTTP requests and 
+							   dispatching those requests to the app's executable endpoints(ex: page)
+
+app.UseEndpoints			-> the most typical configuration is to route all requests to a Razor page, 
+								which acts as the host for the server-side part of the Blazor Server app
+							-> the route specified in the host file is a called a fallback route because 
+							    it operates with a low priority in route matching
+							-> the fallback route is considered when the other routes don't match
+							-> this allows the app to use others controllers and pages without interfering 
+							    with the Blazor Server app
+
+
+-- App.razor --
+
+-> root component of the app that sets up client-side routing using the Route component
+
+MainPage: _Host.cshtml
+
+-- MainLayout --
+
+@inherits LayoutComponentBase : this is a must have 
+
+-> we don't need to have MainLayout.razor but we need to inherit from LayoutComponentBase 
+if we make our own razor page
+
+@Body: encompasses everything that you page dispays
+<NavLink> : combines a link with buttons, icons, 
+			matching to routes so you can also utilize authentication or authorization
+
+
+
+2. Blazor WebAssembly
+	
+-> in a WASM app there is no difference between a Scoped and a Singleton Service in terms of his lifetime
+   there is only one client: the browser user	
+
+MainPage : wwwroot -> index.html
+
+-> the <link> in the index.html are there to support the main layout, but we can remove them 
+-> <base> element must be in the page
+
+<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="css/app.css" rel="stylesheet" />
+<link href="06_ProjectOverview_BlazorWebAssembly.Client.styles.css" rel="stylesheet" />
+
+
+-- WheatherForecast.cs --
+-> the client uses a HTTP client to call an API controller to get this weather forecast
+
+-- index.html --
+
+<script src="_framework/blazor.webassembly.js"></script>
+
+-> the JS that need to load to support blazer
+-> it's a shim that download the .net runtime(which is a CLR - command line runtime) in base class libraries, 
+the app , all the dependencies, all of the dll's, all the assemblies
+-> initializes the runtime to run the app
+
+

@@ -1,0 +1,58 @@
+﻿@page "/bookStore"
+
+<h3>Book Store</h3>
+<br />
+
+<div>
+    <select @onchange="ItemSelected" style="width:25%">
+        @foreach (var book in books)
+        {
+            <option value="@book.Id">@book.Title</option>
+        }
+    </select>
+    <br />
+    @if (bookSelected != null)
+    {
+        <br />
+        <div>
+            BookSelected Book:
+            <b>@bookSelected.Title</b>
+        </div>
+    }
+</div>
+
+@code{
+    private Book bookSelected;
+
+    private void ItemSelected(ChangeEventArgs args)
+    {
+        bookSelected = (from p in books
+                        where p.Id == Convert.ToInt32(args.Value.ToString())
+                        select p
+                        ).FirstOrDefault();
+    }
+
+    private List<Book> books;
+
+    protected override void OnInitialized()
+    {
+        books = new List<Book>()
+{
+            new Book(){Id=1, Title="Ion", Price=12},
+            new Book(){Id=2, Title="Fratii Grim", Price=13},
+            new Book(){Id=3, Title="Idila pe un turn", Price=14},
+            new Book(){Id=4, Title="Elodia", Price=15},
+            new Book(){Id=5, Title="Saturn", Price=16},
+            new Book(){Id=6, Title="Venus", Price=17},
+            new Book(){Id=7, Title="Neptun", Price=18},
+            new Book(){Id=8, Title="Pluto", Price=19}
+        };
+    }
+
+    private class Book
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public double Price { get; set; }
+    }
+}

@@ -1,0 +1,11 @@
+﻿-> create Blazor Sever Project
+-> create Blazor WebAssembly Project (check the ASP.net hosted)
+-> reference the WebAssembly Project to the Blazor Server project
+
+-- Blazor Server : _Host.cshtml --
+
+-> everything in the UI is host in App.razor component:
+<component type="typeof(App)" render-mode="ServerPrerendered" />
+
+render-mode = "ServerPrerender"
+    -> "prerendered" is a server side feature 

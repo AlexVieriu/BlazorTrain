@@ -1,0 +1,13 @@
+﻿@inject AppState AppState
+
+<h3>ChildComponent</h3>
+
+<button class="btn btn-primary" @onclick="UpdateMessageButtonClicked">Update Message</button>
+
+@code{
+
+    void UpdateMessageButtonClicked()
+    {
+        AppState.UpdateMessage(this, "Message Update by Child Component");
+    }
+}

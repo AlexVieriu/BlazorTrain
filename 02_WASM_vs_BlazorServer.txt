@@ -1,0 +1,90 @@
+﻿1. WASM Hosting Model
+
+-> download: CLR, ASSEMBLIES, JS, CSS
+-> runs in webassembly sandbox
+-> c# interacts with the DOM by exchanging messages with the JS handler
+
+2. Server Hostin Model
+
+-> takes the C# code part of the app and run it on server
+-> to do that, there is some JS code in the browser that hooks DOM events(ex: button click)
+and then pass a binary message to the server
+-> server runs the code
+-> send back DOM update message
+-> everything happens by SignalR
+	-> a robust messaging platform
+	-> maintain a persistent connection
+	-> works on port 80
+	-> doesn't require firewall rules
+	-> created in 2013
+	-> open source library for asp.net
+	-> transport async messages over persistent connection
+	-> each client has a his own private canal of comunication
+
+3. Explaing how Blazor Server works
+
+-- _Host.html --
+
+<script src="_framework/blazor.server.js"></script>
+
+-> when we press the Counter button, that JS intercepts the event, send a message  
+to the server using throw SignalR
+-> server gets the message, execute increment count 
+-> update something in the DOM
+	-> how it does that? : the server has a graph of the DOM, has all the elements that are in the DOM,
+						   check the difference of the original model, 
+						   see that @currentCount was change,
+						   raps a message into the blazor pack binary protocol that say you need to modify this
+						   send it back to the Web throw SignalR
+						   JS hooks that message and update the DOM
+
+
+4. Explaning how Blazor WebAssembly works
+
+Creating a project with/without ASP.NET Core hosted
+-> without	: one WASM project
+-> with		: 2 projects(1 WASM, 1 Blazor Server) + 1 library(for Models)
+
+
+5. Requirement for scaling
+
+WebAssembly		: no requirements(everything runs on the client)
+Blazor Server	: - 85k OverHead for every client
+				  - avoid keeping large datasets around
+				  - the number of SignalR connections are limited by memory and CPU
+				  - you can remove SignalR from you project and move it to Azure SignalR Service
+						-> support 100,000 concurrent users max
+						-> FREE: 20 Users, 20k messages/day
+
+Testing Blazor Server:
+-> 200ms : when people see a site is slow
+				  
+
+-- Blazor Server --
+
+Pros:
+-> fast loading
+-> access to secure resources
+-> code not sent to browser
+
+Cons:
+-> extra lantency(every event click is render on server)
+-> online only
+-> scale must be addressed
+-> server required
+
+
+-- Webassabley
+Pros:
+-> faster UI code
+-> offline support
+-> server not requried
+-> any .net Standard 2 C# will run into the browser
+
+Cons:
+-> API layer required
+-> visual studio debugging?
+-> C# code sent to browser
+
+
+

@@ -1,0 +1,43 @@
+﻿There are 2 types of blazor components:
+-> simple component 
+-> page component   (has at the top :  @page "/home" )
+
+How blazor page components are created():
+
+-> show hidden files
+obj-> debug-> bet5.0 -> RazorDeclaration -> Pages -> Counter.razor.g.cs
+
+-> a blazor page component is actualy a public partial class:
+
+[Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
+public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+{
+    protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+    {
+    }
+       
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
+-> we use Reflection to make the routing work
+
+-- App.razor --
+
+<Router AppAssembly="@typeof(Program).Assembly" >
+-> the router need to know what Assembly is looking at
+-> then he find all of the classes that have that route attribute, then he build a table in memory
+-> and apply a filter, for this page this are all the routes(a page can have multiple routes)
+
+<Found Context="routeData">
+-> if we found the page, route, component with the filter we put on the above then 
+
+<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+-> show it with <RouteView>  
+
+
+Route Parameters

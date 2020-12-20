@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30803.129
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppState_CascadingParameterMethod", "AppState_CascadingParameterMethod\AppState_CascadingParameterMethod.csproj", "{9DF159FB-289A-4FE2-A0E6-D9E94D9527BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppState_ServiceMethod", "AppState_ServiceMethod\AppState_ServiceMethod.csproj", "{D885C12F-7A0C-4095-83FD-473AE0AC7BBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Introducing Blazor", "Introducing Blazor\Introducing Blazor.csproj", "{6752423F-92D2-4AE2-A13F-061CDA81CA2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02_BlazorWebAssembly", "02_BlazorWebAssembly\02_BlazorWebAssembly.csproj", "{2EA03745-A88D-4C12-ACEB-8A49C9BF96A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{ABD3107E-A57A-47E9-BE79-3134DCCBF659}"
+	ProjectSection(SolutionItems) = preProject
+		01_Introducing Blazor.txt = 01_Introducing Blazor.txt
+		02_WASM_vs_BlazorServer.txt = 02_WASM_vs_BlazorServer.txt
+		03_WebAssembly.txt = 03_WebAssembly.txt
+		04_Synchronicity.txt = 04_Synchronicity.txt
+		06_Project OverView.txt = 06_Project OverView.txt
+		07_RoutingAndNavigation.txt = 07_RoutingAndNavigation.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_RountingAndNavigation", "07_RountingAndNavigation\07_RountingAndNavigation.csproj", "{216BE250-A9E9-49BC-A574-14EB0F0EE474}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DF159FB-289A-4FE2-A0E6-D9E94D9527BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF159FB-289A-4FE2-A0E6-D9E94D9527BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF159FB-289A-4FE2-A0E6-D9E94D9527BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF159FB-289A-4FE2-A0E6-D9E94D9527BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D885C12F-7A0C-4095-83FD-473AE0AC7BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D885C12F-7A0C-4095-83FD-473AE0AC7BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D885C12F-7A0C-4095-83FD-473AE0AC7BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D885C12F-7A0C-4095-83FD-473AE0AC7BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6752423F-92D2-4AE2-A13F-061CDA81CA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6752423F-92D2-4AE2-A13F-061CDA81CA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6752423F-92D2-4AE2-A13F-061CDA81CA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6752423F-92D2-4AE2-A13F-061CDA81CA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA03745-A88D-4C12-ACEB-8A49C9BF96A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA03745-A88D-4C12-ACEB-8A49C9BF96A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA03745-A88D-4C12-ACEB-8A49C9BF96A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA03745-A88D-4C12-ACEB-8A49C9BF96A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216BE250-A9E9-49BC-A574-14EB0F0EE474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216BE250-A9E9-49BC-A574-14EB0F0EE474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216BE250-A9E9-49BC-A574-14EB0F0EE474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216BE250-A9E9-49BC-A574-14EB0F0EE474}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81767FD9-F621-419A-80E7-EBAF7BA909D3}
+	EndGlobalSection
+EndGlobal

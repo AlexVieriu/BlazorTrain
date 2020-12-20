@@ -1,0 +1,21 @@
+﻿
+
+@code{
+    List<Person> peoples;
+
+    protected override void OnInitialized()
+    {
+        peoples = new List<Person>()
+        {
+            new Person(){ Id=1, FirstName="Vieriu", LastName ="Alexandru"},
+            new Person(){ Id=2, FirstName="Cercel", LastName ="Cristian"}
+        };
+    }
+
+    public class Person
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+}
