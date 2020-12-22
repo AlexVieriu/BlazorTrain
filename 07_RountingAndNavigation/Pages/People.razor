@@ -1,16 +1,112 @@
-﻿
+﻿@page "/people"
+@page "/people/{id:int}"
+@page "/people/{Message}"
+@page "/people/{Message}/{Lastname}"
+@page "/people/{Message}/{Id:int}"
+
+@implements IDisposable
+
+@using Microsoft.AspNetCore.WebUtilities
+
+@inject NavigationManager navManager
+
+@if (Message != null)
+{
+    <h3>Your Message:</h3>
+    <div>
+        @Message
+    </div>
+    <br />
+}
+
+@if (filterPersons != null)
+{
+    <h3>People</h3>
+    <ul>
+        @foreach (var person in filterPersons)
+        {
+            <li>@(person.FirstName + " " + person.LastName)</li>
+        }
+    </ul>
+}
+
 
 @code{
-    List<Person> peoples;
+    List<Person> persons;
+    List<Person> filterPersons;
+
+    [Parameter]
+    public string LastName { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    [Parameter]
+    public int? Id { get; set; }
+
 
     protected override void OnInitialized()
     {
-        peoples = new List<Person>()
-        {
-            new Person(){ Id=1, FirstName="Vieriu", LastName ="Alexandru"},
-            new Person(){ Id=2, FirstName="Cercel", LastName ="Cristian"}
-        };
+        navManager.LocationChanged += LocationChanged;
+
+        base.OnInitialized();
     }
+
+    public void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
+        System.Diagnostics.Debug.WriteLine($"Navigated by {navigationMethod} to {e.Location}");
+    }
+
+    void IDisposable.Dispose()
+    {
+        navManager.LocationChanged -= LocationChanged;
+    }
+
+
+    protected override void OnParametersSet()
+    {
+
+        var uri = navManager.ToAbsoluteUri(navManager.Uri);
+
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("Message", out var message))
+        {
+            Message = message;
+        }
+
+        persons = new List<Person>()
+    {
+            new Person(){Id=1,FirstName="Vieriu", LastName="Alexandru" },
+            new Person(){Id=2,FirstName="Cercel", LastName="Cristian" },
+            new Person(){Id=3,FirstName="Dumitrascu", LastName="Alexandru" },
+            new Person(){Id=4,FirstName="Popescu", LastName="Cosmin" }
+
+        };
+
+        if (LastName != null)
+        {
+            filterPersons = (from x in persons
+                             where x.LastName.ToLower().Contains(LastName.ToLower())
+                             select x
+                             ).ToList();
+        }
+        else
+        {
+            if (Id != null)
+            {
+                filterPersons = (from x in persons
+                                 where x.Id == Id
+                                 select x
+                                 ).ToList();
+            }
+            else
+            {
+                filterPersons = persons;
+            }
+
+        }
+    }
+
 
     public class Person
     {
@@ -18,4 +114,5 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
+
 }

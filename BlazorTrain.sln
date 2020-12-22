@@ -19,9 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{ABD3107E
 		04_Synchronicity.txt = 04_Synchronicity.txt
 		06_Project OverView.txt = 06_Project OverView.txt
 		07_RoutingAndNavigation.txt = 07_RoutingAndNavigation.txt
+		08_Blazor Component Life Cycle.txt = 08_Blazor Component Life Cycle.txt
+		09_Binding and Event Handling.txt = 09_Binding and Event Handling.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_RountingAndNavigation", "07_RountingAndNavigation\07_RountingAndNavigation.csproj", "{216BE250-A9E9-49BC-A574-14EB0F0EE474}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07_RountingAndNavigation", "07_RountingAndNavigation\07_RountingAndNavigation.csproj", "{216BE250-A9E9-49BC-A574-14EB0F0EE474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,31 @@
+﻿public abstract class ComponentBase : IComponent, IHandleEvent, IHandleAfterRender
+{
+	public	  virtual	Task SetParametersAsync(ParameterView parameters);
+	protected virtual	void BuildRenderTree(RenderTreeBuilder builder);
+	protected Task			 InvokeAsync(Action workItem);
+	protected Task			 InvokeAsync(Func<Task> workItem);
+	protected virtual	void OnAfterRender(bool firstRender);
+	protected virtual	Task OnAfterRenderAsync(bool firstRender);
+	protected virtual	void OnInitialized();
+	protected virtual	Task OnInitializedAsync();
+	protected virtual	void OnParametersSet();
+	protected virtual	Task OnParametersSetAsync();
+	protected virtual	bool ShouldRender();
+	protected void			 StateHasChanged();	
+}
+
+Main functioncs:
+
+-> SetParametersAsync
+-> OnInitialized
+-> OnParametersSet
+
+render-mode="ServerPrerendered"
+	
+Why OnInitialized is called twice?
+-> render-mode="ServerPrerendered"
+	-> first time: the HTML component are called static
+	-> secound time: replace the static component with interactive components
+
+
+-- Better explain on Udemy --

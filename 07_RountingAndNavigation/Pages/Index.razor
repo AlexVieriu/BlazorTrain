@@ -1,7 +1,13 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@inject NavigationManager navManager
 
-Welcome to your new app.
+<button @onclick="@(() => navManager.NavigateTo("people/hello"))">
+        Navigate to people filter 1
+</button>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<br />  
+
+<button @onclick="@(()=> navManager.NavigateTo("/people/1"))">
+    Navigate to people filter 2
+</button>

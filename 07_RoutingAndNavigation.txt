@@ -26,6 +26,10 @@ public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
 
 -> we use Reflection to make the routing work
 
+
+--- From here to down, the concepts are explain better on Udemy ---
+
+
 -- App.razor --
 
 <Router AppAssembly="@typeof(Program).Assembly" >
@@ -40,4 +44,79 @@ public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
 -> show it with <RouteView>  
 
 
-Route Parameters
+1.Route Parameters
+
+-- Pages-> People.razor --
+
+UI:
+-> create a select element with Person class as options
+
+code:
+-> OnInitialized() : initialize the values for the class Person(Id, FirstName, LastName)
+-> create a filter person using LINQ by: LastName, Id
+
+
+
+-> to add .txt in the link/route page
+    -> go to _Host.cshtml -> add @page"/{**path}" 
+    -> only for blazer projects
+
+-- Index.razor --
+
+-> create 2 buttons to navigate to differente pages
+    NavigateTo("people/hello")
+    NavigateTo("/peopl/1")
+
+
+->> Take the values from the URL: QueryStrings <<-
+
+install NugetPackes : Microsoft.AspNetCore.WebUtilities
+
+ex:
+var uri = navManager.ToAbsoluteUri(navManager.Uri);
+
+if(QueryHelpers.ParseQuery(uri.Query).TryGetValue("Message", out var message))
+{
+    Message = message;
+}
+
+
+/people?message= bla bla bla
+
+
+->> How we detect when a navigation is occurring <<-
+
+-> look at the OutPut console in Visual Studio to see the urls
+
+protected override void OnInitialized()
+{
+    navManager.LocationChanged += LocationChanged;
+
+    base.OnInitialized();
+}
+
+public void LocationChanged(object sender, LocationChangedEventArgs e)
+{
+    string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
+    System.Diagnostics.Debug.WriteLine($"Navigated by {navigationMethod} to {e.Location}");
+}
+
+void IDisposable.Dispose()
+{
+    navManager.LocationChanged -= LocationChanged;
+}
+
+(27:00)
+Event Delegator: -> handle all eventing system in blazor
+                 -> have a special use case for Navigation Events: has a callback registered and that comes from NavigationManager
+                 -> the Navigation Manager is not the one that we are using on pages, it's a C# version
+                 -> this is interception any kind of navigation that the browser will normally handle       
+                 -> when an event is called the Navigation Manager does some checks:
+                        -> there are some events that don't need to be taking into account: 
+                            -> opening a new tab CTRL + click link 
+                        -> "the modify key press"
+                            -> when we hold a key to click and event, we don't want blazor to stop us
+                        -> checking for a target attribute
+                        -> the route is in the scope of the base URI
+
+<base href="/" /> : a way of knowing where the app sit in the URL scheme
